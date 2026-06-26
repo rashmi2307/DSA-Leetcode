@@ -34,3 +34,24 @@ class Solution:
             for j in range (n):
                 if matrix[i][j] == -1:
                     matrix[i][j] = 0
+
+
+
+# Better Approach
+# Time Complexity: O(m*n) where m is the number of rows and n is the number of columns in the input matrix
+# Space Complexity: O(m+n) as we are using two extra arrays of size m and n
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        m = len(matrix)
+        n = len(matrix[0])
+        row = [0]*m
+        col = [0]*n
+        for i in range (m):
+            for j in range (n):
+                if matrix[i][j] == 0:
+                    row[i] = 1
+                    col[j] = 1
+        for i in range (m):
+            for j in range (n):
+                if row[i] == 1 or col[j] == 1:
+                    matrix[i][j] = 0
