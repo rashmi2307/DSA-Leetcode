@@ -27,3 +27,23 @@ class Solution:
                 if sum == k:
                     count += 1
         return count
+    
+
+
+# Optimal Approach
+# Time Complexity: O(n) where n is the length of the input array
+# Space Complexity: O(n) as we are using a dictionary to store the prefix sum counts
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        prefixSumCount = {}
+        prefixSumCount[0] = 1
+        prefixSum = 0
+        count = 0
+        for i in range (n):
+            prefixSum += nums[i]
+            remove = prefixSum - k
+            if remove in prefixSumCount:
+                count += prefixSumCount[remove]
+            prefixSumCount[prefixSum] = prefixSumCount.get(prefixSum, 0) + 1
+        return count
