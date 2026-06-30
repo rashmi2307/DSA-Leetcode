@@ -36,3 +36,10 @@ class Solution:
             answer.append([start,end])
             i = j
         return answer
+    
+
+
+# Better Approach
+
+
+# Optimal Approach
