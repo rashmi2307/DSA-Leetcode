@@ -49,3 +49,26 @@ class Solution:
             suffix *= nums[n-i-1]
             answer = max(prefix, suffix, answer)
         return answer
+    
+
+
+# Optimal Approach: Using dynamic programming technique to find the maximum product subarray.
+# Time Complexity: O(n) where n is the length of the input array
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        n = len(nums)
+        result = nums[0]
+        maxProd = nums[0]
+        minProd = nums[0]
+        for i in range (1,n):
+            current = nums[i]
+
+            if current < 0:
+                maxProd, minProd = minProd, maxProd
+
+            maxProd = max(current, maxProd * current)
+            minProd = min(current, minProd * current)
+
+            result = max(maxProd, result)
+
+        return result
