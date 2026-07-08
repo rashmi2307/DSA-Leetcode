@@ -41,3 +41,33 @@ class Solution:
         for pile in piles:
             totalHours += math.ceil(pile/hourly)
         return totalHours
+
+
+
+
+
+
+# Optimized Approach:
+# Time Complexity: O(n * log(max(piles))) - We are using binary search to find the minimum eating speed. For each mid value, we are calculating the total hours required to eat all the bananas.
+# Space Complexity: O(1) - We are not using any extra space.
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        maxPile = max(piles)
+        low, high = 1, maxPile
+        answer = maxPile
+
+        while low <= high:
+            mid = (low+high)//2
+            totalHours = self.calculateTotalHours(piles, mid) 
+            if totalHours <= h:
+                answer = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+        return answer
+
+    def calculateTotalHours(self, piles, speed):
+        totalH = 0
+        for bananas in piles:
+            totalH += math.ceil(bananas/speed)
+        return totalH
