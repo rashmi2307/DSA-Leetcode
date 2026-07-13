@@ -31,3 +31,62 @@ class Solution:
                 
 
 
+# Better Approach:
+# Time Complexity: O(m+n) - We are traversing the matrix in a linear fashion to find the target element.
+# Space Complexity: O(1) - We are not using any extra space.
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+
+        n = len(matrix)
+        m = len(matrix[0])
+
+        for i in range (n):
+            if matrix[i][0] <= target <= matrix[i][m-1]:
+                return self.binarySearch(matrix[i], target)
+
+        return False
+                
+    def binarySearch(self, matrix, target):
+        low = 0
+        high = len(matrix)-1
+        while low <= high:
+            mid = (low+high)//2
+
+            if matrix[mid] == target:
+                return True
+            elif matrix[mid] < target:
+                low = mid+1
+            else:
+                high = mid - 1
+        return False
+
+
+
+
+
+# Optimal Approach:
+# Time Complexity: O(log(m*n)) - We are performing binary search on the entire matrix
+# Space Complexity: O(1) - We are not using any extra space.
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+
+        n = len(matrix)
+        m = len(matrix[0])
+
+        low = 0
+        high = n * m - 1
+
+        while low <= high:
+            mid = (low+high)//2
+
+            row = mid // m
+            column = mid % m
+
+            if matrix[row][column] == target:
+                return True
+            elif matrix[row][column] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return False
